@@ -17,7 +17,7 @@
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-backup_path = '/srv/data/computer/backups/lvs'
+backup_path = '/srv/data/backups/vms_disks'
 
 # TODO: use libvirt API to lookup VM name to LV path
 vms = (
@@ -25,6 +25,7 @@ vms = (
     'vm-2.example.com',
 )
 
-# TODO: use libvirt API to lookup VM name to LV path
+from kvm_vm_disk_backup import KvmVmDiskBackup
+
 k = KvmVmDiskBackup(vms = vms, backup_path = backup_path)
 k.backup()

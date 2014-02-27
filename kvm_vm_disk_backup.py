@@ -1,4 +1,4 @@
-#us/bin/python
+#!/usr/bin/env python
 
 '''
     Copyright 2013 Jamgo S.C.C.L. info@jamgo.es
@@ -87,7 +87,8 @@ class LV:
             output = _execute_bash_command(command)
         except BashCommandError as e:
             print e
-            print 'Either you are not root or the LV already exists'
+            print 'Either you are not root or the LV "%s" already exists'\
+                  % self.lv_path_backup
             exit()
 
     def backup_snapshot(self, blocksize):
@@ -116,7 +117,6 @@ class  KvmVmDiskBackup:
                    'script needs to be run from the hypervisor host')
         self.vms = vms
         self.backup_path = backup_path
-        self.batch = batch
         self.lv_backup_size = lv_backup_size
         self.blocksize = blocksize
 
@@ -159,8 +159,8 @@ class  KvmVmDiskBackup:
 
     def _get_free_space(self, path):
         ''' Returns the remaining space in GB of a path '''
-        output = _execute_bash_command('df -kh %s' % path)
-        return int(output.split(' ')[21].split('G')[0])
+        output = _execute_bash_command('df -kh %s | grep /' % path)
+        return int(output.strip().split('G')[2].strip())
 
     def _get_lv_snapshot_fullness(self, lv_name):
         ''' Returns Data% column of the given LV '''
