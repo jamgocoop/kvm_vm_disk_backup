@@ -1,0 +1,28 @@
+1. Requirements
+
+KVM kernel cappabilities and Virtual Machines running on it.
+
+Below packages should be installed:
+
+libvirt-bin lvm2 python
+
+Script was tested with python 2.7.x. Should be ported to run on python 3.x
+
+2. User and groups
+
+The script needs to be run as root or a user that:
+
+-Can create/remove Logical Volumes (LV)
+-Can connect to libvirtd through socket. This tipically requires to belong to the same group that runs the libvirt process
+
+3. Installation
+
+If requirements and user/groups are satisfied, just pick an example from "examples" directory and test it
+
+4. TODO
+
+Implement the revert LV compressed backup method
+
+5. Contact
+
+info@jamgo.es
